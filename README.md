@@ -1,4 +1,4 @@
-webshop
+WebShop Web Application
 =======
 
-Projektet vi kör i "Web applikationer"
+Detta är den repository som skall användas vid den projektkurs vi har på CTH.
