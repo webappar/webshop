@@ -19,6 +19,10 @@ var shop = angular.module('Shop', [
 shop.config(['$routeProvider',
     function($routeProvider) {  // Injected object $routeProvider
         $routeProvider.
+                when('/home', {
+                    templateUrl: 'partials/home/home.html'
+                    //controller: Not used
+                }).
                 when('/products', {
                     templateUrl: 'partials/products/products.html',
                     controller: 'ProductListCtrl'
@@ -40,7 +44,7 @@ shop.config(['$routeProvider',
                     //controller: Not used
                 }).
                 otherwise({
-                    redirectTo: '/products'
+                    redirectTo: '/home'
                 });
 
     }]);
