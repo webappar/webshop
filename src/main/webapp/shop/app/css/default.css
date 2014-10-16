@@ -17,10 +17,10 @@ body {
 }
 
 header {
-    background-image:  url(../img/banner.jpg);
+    background-image: url(../img/PolarBear.jpg);
     background-repeat: repeat;
     background-position: center;
-    border-radius:25px;
+    border-radius: 25px;
     box-shadow: 8px 8px 5px gainsboro
 }
 
