@@ -14,9 +14,16 @@
     <!-- Use the new HQL/SQL query translator -->
     <property name="hibernate.query.factory_class">org.hibernate.hql.internal.ast.ASTQueryTranslatorFactory</property>
     <!-- C3P0 connection pool instead of Hibernate's internal default connection pool -->
-    <!-- TODO: Are c3p0 defaults good? Check if autoReconnect works. (idle for 8 hours MySQL disconnects Tomcat?) -->
     <property name="hibernate.connection.provider_class">org.hibernate.c3p0.internal.C3P0ConnectionProvider</property>
     <!-- Mappings -->
-    <mapping resource="com/project/webshop/model/Customer.hbm.xml"/>
+    <mapping class="com.project.webshop.model.Customer"/>
+    <mapping class="com.project.webshop.model.Orderitem"/>
+    <mapping class="com.project.webshop.model.OrderitemId"/>
+    <mapping class="com.project.webshop.model.Orderprice"/>
+    <mapping class="com.project.webshop.model.OrderpriceId"/>
+    <mapping class="com.project.webshop.model.Orders"/>
+    <mapping class="com.project.webshop.model.Ordershoppinglist"/>
+    <mapping class="com.project.webshop.model.OrdershoppinglistId"/>
+    <mapping class="com.project.webshop.model.Products"/>
   </session-factory>
 </hibernate-configuration>
