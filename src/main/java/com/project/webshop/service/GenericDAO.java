@@ -13,10 +13,23 @@ public abstract class GenericDAO<T, K extends Serializable> implements IGenericD
 
     final Session session = HibernateUtil.getSessionFactory().getCurrentSession();
 
-    public void saveOrUpdate(T entity) {
+    public void save(T entity) {
         try {
             session.beginTransaction();
-            session.saveOrUpdate(entity);
+            session.save(entity);
+            session.getTransaction().commit();
+        } catch (HibernateException e) {
+            session.getTransaction().rollback();
+            e.printStackTrace();
+        } finally {
+            HibernateUtil.getSessionFactory().getCurrentSession().close();
+        }
+    }
+
+    public void update(T entity) {
+        try {
+            session.beginTransaction();
+            session.update(entity);
             session.getTransaction().commit();
         } catch (HibernateException e) {
             session.getTransaction().rollback();
@@ -59,6 +72,21 @@ public abstract class GenericDAO<T, K extends Serializable> implements IGenericD
         try {
             session.beginTransaction();
             objects = session.createQuery("from " + clazz.getName()).list();
+            session.getTransaction().commit();
+        } catch (HibernateException e) {
+            session.getTransaction().rollback();
+            e.printStackTrace();
+        } finally {
+            HibernateUtil.getSessionFactory().getCurrentSession().close();
+        }
+        return objects;
+    }
+
+    public List<T> findRange(Class<T> clazz, int fst, int count) {
+        List<T> objects = null;
+        try {
+            session.beginTransaction();
+            objects = session.createQuery("from " + clazz.getName()).setFirstResult(fst).setMaxResults(count).list();
             session.getTransaction().commit();
         } catch (HibernateException e) {
             session.getTransaction().rollback();

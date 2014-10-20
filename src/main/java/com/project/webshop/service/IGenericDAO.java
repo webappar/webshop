@@ -11,13 +11,17 @@ import java.util.List;
  */
 public interface IGenericDAO<T, K extends Serializable> {
 
-    public void saveOrUpdate(T entity);
+    public void save(T entity);
+
+    public void update(T entity);
 
     public void delete(T id);
 
     public T find(Class<T> clazz, K id);
 
     public List<T> findAll(Class<T> clazz);
+
+    public List<T> findRange(Class<T> clazz, int fst, int count);
 
     public int count(Class<T> clazz);
 }
