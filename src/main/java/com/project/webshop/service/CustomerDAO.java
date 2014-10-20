@@ -27,7 +27,7 @@ public class CustomerDAO extends GenericDAO<Customer, String> {
     @Path("{id}")
     @Produces(MediaType.APPLICATION_JSON)
     public Response getCustomer(@PathParam("id") final String id) {
-        Customer customer = null;
+        Customer customer;
         customer = find(Customer.class, id);
         return (customer != null)
                 ? Response.ok(customer).build()
@@ -48,11 +48,10 @@ public class CustomerDAO extends GenericDAO<Customer, String> {
     @Path("count")
     @Produces(MediaType.APPLICATION_JSON)
     public Response count() {
-        List<Customer> customer;
-        customer = findAll(Customer.class);
+        int count = count(Customer.class);
         JSONObject json = new JSONObject();
-        json.put("value", customer.size());
-        return (customer != null)
+        json.put("value", count);
+        return (count != -1)
                 ? Response.ok(json).build()
                 : Response.noContent().build();
     }

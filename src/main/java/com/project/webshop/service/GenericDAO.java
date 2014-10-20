@@ -2,7 +2,6 @@ package com.project.webshop.service;
 
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
-import org.hibernate.Query;
 
 import java.io.Serializable;
 import java.util.List;
@@ -59,8 +58,7 @@ public abstract class GenericDAO<T, K extends Serializable> implements IGenericD
         List<T> objects = null;
         try {
             session.beginTransaction();
-            Query query = session.createQuery("from " + clazz.getName());
-            objects = query.list();
+            objects = session.createQuery("from " + clazz.getName()).list();
             session.getTransaction().commit();
         } catch (HibernateException e) {
             session.getTransaction().rollback();
@@ -69,5 +67,20 @@ public abstract class GenericDAO<T, K extends Serializable> implements IGenericD
             HibernateUtil.getSessionFactory().getCurrentSession().close();
         }
         return objects;
+    }
+
+    public int count(Class<T> clazz) {
+        int c = -1;
+        try {
+            session.beginTransaction();
+            c = ((Long)session.createQuery("select count(*) from " + clazz.getName()).uniqueResult()).intValue();
+            session.getTransaction().commit();
+        } catch (HibernateException e) {
+            session.getTransaction().rollback();
+            e.printStackTrace();
+        } finally {
+            HibernateUtil.getSessionFactory().getCurrentSession().close();
+        }
+        return c;
     }
 }
