@@ -22,6 +22,7 @@ public class CustomerDAO extends GenericDAO<Customer, String> {
                 json.get("userName").toString(),
                 json.get("userEmail").toString(),
                 json.get("password").toString());
+
         super.save(cust);
     }
 
@@ -32,23 +33,21 @@ public class CustomerDAO extends GenericDAO<Customer, String> {
                 json.get("userName").toString(),
                 json.get("userEmail").toString(),
                 json.get("password").toString());
+
         super.update(cust);
     }
 
     @DELETE
     @Path("{id}")
     public void delete(@PathParam("id") final String id) {
-        Customer customer = new Customer();
-        customer.setUserName(id);
-        super.delete(customer);
+        super.delete(new Customer(id));
     }
 
     @GET
     @Path("{id}")
     @Produces(MediaType.APPLICATION_JSON)
     public Response find(@PathParam("id") final String id) {
-        Customer customer;
-        customer = super.find(Customer.class, id);
+        Customer customer = super.find(Customer.class, id);
         return (customer != null)
                 ? Response.ok(customer).build()
                 : Response.noContent().build();
@@ -57,8 +56,7 @@ public class CustomerDAO extends GenericDAO<Customer, String> {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public Response findAll() {
-        List<Customer> customer;
-        customer = super.findAll(Customer.class);
+        List<Customer> customer = super.findAll(Customer.class);
         return (customer != null)
                 ? Response.ok(customer).build()
                 : Response.noContent().build();
@@ -68,8 +66,7 @@ public class CustomerDAO extends GenericDAO<Customer, String> {
     @Path("range")
     @Produces(MediaType.APPLICATION_JSON)
     public Response findRange(@QueryParam("fst") final int fst, @QueryParam("count") final int count) {
-        List<Customer> customer;
-        customer = super.findRange(Customer.class, fst, count);
+        List<Customer> customer = super.findRange(Customer.class, fst, count);
         return (customer != null)
                 ? Response.ok(customer).build()
                 : Response.noContent().build();
