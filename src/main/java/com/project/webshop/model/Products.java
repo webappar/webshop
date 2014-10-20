@@ -9,7 +9,7 @@ import javax.persistence.Table;
  * Products
  */
 @Entity
-@Table(name = "products", catalog = "webshop")
+@Table(name = "Products", catalog = "webshop")
 public class Products implements java.io.Serializable {
 
     private int artNr;

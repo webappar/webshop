@@ -11,7 +11,7 @@ import javax.persistence.Table;
  * Orders
  */
 @Entity
-@Table(name = "orders", catalog = "webshop")
+@Table(name = "Orders", catalog = "webshop")
 public class Orders implements java.io.Serializable {
 
     private Integer ordNr;

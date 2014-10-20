@@ -10,7 +10,7 @@ import javax.persistence.UniqueConstraint;
  * Customer
  */
 @Entity
-@Table(name = "customer", catalog = "webshop", uniqueConstraints = @UniqueConstraint(columnNames = "userEmail"))
+@Table(name = "Customer", catalog = "webshop", uniqueConstraints = @UniqueConstraint(columnNames = "userEmail"))
 public class Customer implements java.io.Serializable {
 
     private String userName;

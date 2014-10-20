@@ -11,7 +11,7 @@ import javax.persistence.Table;
  * Ordershoppinglist
  */
 @Entity
-@Table(name = "ordershoppinglist", catalog = "webshop")
+@Table(name = "Ordershoppinglist", catalog = "webshop")
 public class Ordershoppinglist implements java.io.Serializable {
 
     private OrdershoppinglistId id;
