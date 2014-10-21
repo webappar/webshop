@@ -7,4 +7,32 @@ and open the template in the editor.
 <div>
         <!--Body content-->
         <h2>Products detail</h2>
+        
+        <table class="table">
+   <tr>
+            <td rowspan ="3">
+                <img src="img/{{product.proName}}.jpg" alt="testbild1" height="200" width="300">
+            </td>  
+       
+            <td>art.Nr</td>
+            <td>
+                <input ng-model="product.artNr" type="number" value="{{product.artNr}}" disabled/>
+            </td>
+        <tr>
+            <td>Product Name</td>
+            <td>
+                <input ng-model="product.proName" type="text" value="{{product.proName}}" disabled/>
+            </td>
+        </tr>
+        <tr>
+            <td>Price</td>
+            <td>
+                <input ng-model="product.price" type="number" value="{{product.price}}" disabled/>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="3">Description</td>
+        </tr>
+    </table>
+        <p>{{product.description}}</p>
 </div>
