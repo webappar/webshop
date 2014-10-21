@@ -1,18 +1,13 @@
-/* 
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 'use strict';
 
 /*
  * Controllers
  */
 
-var productCatalogueControllers = angular.module('ProductCatalogueControllers', []);
+var webShopControllers = angular.module('WebShopControllers', []);
 
 // General navigation controller (possibly useful?)
-productCatalogueControllers.controller('NavigationCtrl', ['$scope', '$location',
+webShopControllers.controller('NavigationCtrl', ['$scope', '$location',
     function($scope, $location) {
         $scope.navigate = function(url) {
             $location.path(url);
@@ -20,12 +15,12 @@ productCatalogueControllers.controller('NavigationCtrl', ['$scope', '$location',
     }]);
 
 
-productCatalogueControllers.controller('ProductListCtrl', ['$scope', 'ProductCatalogueProxy',
-    function($scope, ProductCatalogueProxy) {
-        $scope.orderProp = 'id';
+webShopControllers.controller('ProductListCtrl', ['$scope', 'WebShopProxy',
+    function($scope, WebShopProxy) {
+        $scope.orderProp = 'artNr';
         $scope.pageSize = '10';
         $scope.currentPage = 0;
-        ProductCatalogueProxy.count()
+        WebShopProxy.count()
                 .success(function(count) {
                     $scope.count = count.value;
                 }).error(function() {
@@ -37,9 +32,8 @@ productCatalogueControllers.controller('ProductListCtrl', ['$scope', 'ProductCat
         });
         function getRange() {
             var fst = $scope.pageSize * $scope.currentPage;
-            ProductCatalogueProxy.findRange(fst, $scope.pageSize)
+            WebShopProxy.findRange(fst, $scope.pageSize)
                     .success(function(products) {
-                        
                         $scope.products = products;
                     }).error(function() {
                 console.log("findRange: error");
@@ -47,10 +41,10 @@ productCatalogueControllers.controller('ProductListCtrl', ['$scope', 'ProductCat
         }
     }]);
 
-productCatalogueControllers.controller('ProductDetailCtrl', ['$scope',
-    '$location', '$routeParams', 'ProductCatalogueProxy',
-    function($scope, $location, $routeParams, ProductCatalogueProxy) {
-        ProductCatalogueProxy.find($routeParams.id)
+webShopControllers.controller('ProductDetailCtrl', ['$scope',
+    '$location', '$routeParams', 'WebShopProxy',
+    function($scope, $location, $routeParams, WebShopProxy) {
+        WebShopProxy.find($routeParams.id)
                 .success(function(product) {
                     $scope.product = product;
                 }).error(function() {
@@ -59,7 +53,7 @@ productCatalogueControllers.controller('ProductDetailCtrl', ['$scope',
 
         // A listener
         $scope.update = function() {
-            ProductCatalogueProxy.update($routeParams.id, $scope.product)
+            WebShopProxy.update($routeParams.id, $scope.product)
                     .success(function() {
                         $location.path('/products');
                     }).error(function() {
@@ -69,7 +63,7 @@ productCatalogueControllers.controller('ProductDetailCtrl', ['$scope',
         // A listener
         $scope.delete = function() {
             // Really delete?? message
-            ProductCatalogueProxy.delete($routeParams.id)
+            WebShopProxy.delete($routeParams.id)
                     .success(function() {
                         $location.path('/products');
                     }).error(function() {
@@ -78,11 +72,11 @@ productCatalogueControllers.controller('ProductDetailCtrl', ['$scope',
         };
     }]);
 
-productCatalogueControllers.controller('ProductNewCtrl', ['$scope',
-    '$location', 'ProductCatalogueProxy',
-    function($scope, $location, ProductCatalogueProxy) {
+webShopControllers.controller('ProductNewCtrl', ['$scope',
+    '$location', 'WebShopProxy',
+    function($scope, $location, WebShopProxy) {
         $scope.save = function() {
-            ProductCatalogueProxy.create($scope.product)
+            WebShopProxy.create($scope.product)
                     .success(function() {
                         $location.path('/products');
                     }).error(function() {
@@ -90,4 +84,3 @@ productCatalogueControllers.controller('ProductNewCtrl', ['$scope',
             });
         };
     }]);
-

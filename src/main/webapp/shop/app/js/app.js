@@ -1,22 +1,17 @@
-/* 
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 'use strict';
 
-/* 
- *  The Shop App
+/*
+ *  The WebShop App
  */
-var shop = angular.module('Shop', [
+var webshop = angular.module('WebShop', [
     'ngRoute',
-    'ProductCatalogueControllers',
-    'ProductCatalogueService'
-     // More here
+    'WebShopControllers',
+    'WebShopService'
+    // More here
 ]);
 
 
-shop.config(['$routeProvider',
+webshop.config(['$routeProvider',
     function($routeProvider) {  // Injected object $routeProvider
         $routeProvider.
                 when('/home', {
@@ -46,7 +41,4 @@ shop.config(['$routeProvider',
                 otherwise({
                     redirectTo: '/home'
                 });
-
     }]);
-
-
