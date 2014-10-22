@@ -1,8 +1,6 @@
 package com.project.webshop;
 
-import com.project.webshop.model.Customer;
-import com.project.webshop.model.Orders;
-import com.project.webshop.model.Products;
+import com.project.webshop.model.*;
 import org.glassfish.jersey.jackson.JacksonFeature;
 import org.json.simple.JSONObject;
 import org.junit.Test;
@@ -37,7 +35,9 @@ public class RestClientTest {
     private static final String PRONAME = "PolarBear";
     private static final int PRICE = 30;
     private static final String URL = "PolarBear.jpg";
-    private static final String DESCRIPTION = "djur";
+    private static final String DESCRIPTION = "En alldeles egen Isbjörn finns att köpa här till det helt " +
+            "incredible låga pris av det som står där ovanför.. Äter pingviner och saltgurka men passa er " +
+            "för att ge den pressad gurkmajonäs då det kan ge upphov till gaser.. globala uppvärmningsgaser!";
 
     // Random existing order from database
     private static final int ORDNR = 10;
@@ -83,9 +83,9 @@ public class RestClientTest {
         assertThat(prod.getDescription(), equalTo(DESCRIPTION));
 
         // 2. Fetch all products incl. total amount
-        GenericType<List<Products>> customerType = new GenericType<List<Products>>() {
+        GenericType<List<Products>> productType = new GenericType<List<Products>>() {
         }; // generic type to wrap a generic list of products
-        List<Products> products = client.target(REST_SERVICE_URL).path("products").request().get(customerType);
+        List<Products> products = client.target(REST_SERVICE_URL).path("products").request().get(productType);
         JSONObject json = client.target(REST_SERVICE_URL).path("products/count").request().get(JSONObject.class);
         assertEquals(products.size(), (int)json.get("value"));
 
@@ -109,9 +109,9 @@ public class RestClientTest {
         assertThat(ord.getOrdUser(), equalTo(ORDUSER));
 
         // 2. Fetch all orders incl. total amount
-        GenericType<List<Orders>> customerType = new GenericType<List<Orders>>() {
-        }; // generic type to wrap a generic list of customers
-        List<Orders> orders = client.target(REST_SERVICE_URL).path("orders").request().get(customerType);
+        GenericType<List<Orders>> orderType = new GenericType<List<Orders>>() {
+        }; // generic type to wrap a generic list of orders
+        List<Orders> orders = client.target(REST_SERVICE_URL).path("orders").request().get(orderType);
         JSONObject json = client.target(REST_SERVICE_URL).path("orders/count").request().get(JSONObject.class);
         assertEquals(orders.size(), (int)json.get("value"));
 
@@ -123,5 +123,58 @@ public class RestClientTest {
                 .resolveTemplate("count", "3").build();
         List<Orders> ordersR = client.target(uri).request().get(orderTypeR);
         assertEquals(ordersR.size(), 3);
+    }
+
+
+    @Test
+    public void testGetOrderitem() {
+
+        // 1. Fetch orderitem by id (NOT IMPLEMENTED)
+
+        // 2. Fetch all orderitems incl. total amount
+        GenericType<List<Orderitem>> orderItemType = new GenericType<List<Orderitem>>() {
+        }; // generic type to wrap a generic list of orderitem
+        List<Orderitem> orderItems = client.target(REST_SERVICE_URL).path("orderitem").request().get(orderItemType);
+        JSONObject json = client.target(REST_SERVICE_URL).path("orderitem/count").request().get(JSONObject.class);
+        assertEquals(orderItems.size(), (int)json.get("value"));
+
+        // 3. Fetch range of orderitems
+        GenericType<List<Orderitem>> orderItemTypeR = new GenericType<List<Orderitem>>() {
+        }; // generic type to wrap a generic list of orderitem
+        final URI uri = UriBuilder.fromUri(REST_SERVICE_URL + "orderitem/range?fst={fst}&count={count}")
+                .resolveTemplate("fst", "1")
+                .resolveTemplate("count", "3").build();
+        List<Orderitem> ordersItemR = client.target(uri).request().get(orderItemTypeR);
+        assertEquals(ordersItemR.size(), 3);
+    }
+
+    @Test
+    public void testGetOrderprice() {
+
+        // 1. Fetch orderprice by id (NOT IMPLEMENTED)
+
+        // 2. Fetch all orderprices incl. total amount
+        GenericType<List<Orderprice>> orderPriceType = new GenericType<List<Orderprice>>() {
+        }; // generic type to wrap a generic list of orderprices
+        List<Orderprice> orderPrices = client.target(REST_SERVICE_URL).path("orderprice").request().get(orderPriceType);
+        JSONObject json = client.target(REST_SERVICE_URL).path("orderprice/count").request().get(JSONObject.class);
+        assertEquals(orderPrices.size(), (int)json.get("value"));
+
+        // 3. Fetch range of orderprices (NOT TESTED)
+    }
+
+    @Test
+    public void testGetOrderShoppingList() {
+
+        // 1. Fetch ordershoppinglist by id (NOT IMPLEMENTED)
+
+        // 2. Fetch all ordershoppinglists incl. total amount
+        GenericType<List<Ordershoppinglist>> orderShoppingListType = new GenericType<List<Ordershoppinglist>>() {
+        }; // generic type to wrap a generic list of ordershoppinglists
+        List<Ordershoppinglist> orderShoppingList = client.target(REST_SERVICE_URL).path("ordershoppinglist").request().get(orderShoppingListType);
+        JSONObject json = client.target(REST_SERVICE_URL).path("ordershoppinglist/count").request().get(JSONObject.class);
+        assertEquals(orderShoppingList.size(), (int)json.get("value"));
+
+        // 3. Fetch range of ordershoppinglists (NOT TESTED)
     }
 }
