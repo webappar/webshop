@@ -6,12 +6,15 @@ and open the template in the editor.
 -->
 <div>
         <!--Body content-->
+        <button class="btn btn-default">
+            <a href ="#products"><font color="000">Back</font></a>
+        </button>
         <h2>Products detail</h2>
         
         <table class="table">
-   <tr>
+        <tr>
             <td rowspan ="3">
-                <img src="img/{{product.proName}}.jpg" alt="testbild1" height="200" width="300">
+                <img src="img/{{product.url}}" alt="{{product.proName}}" height="200" width="300">
             </td>  
        
             <td>art.Nr</td>
@@ -31,7 +34,7 @@ and open the template in the editor.
             </td>
         </tr>
         <tr>
-            <td colspan="3">Description</td>
+            <td colspan="3"><h3>Description</h3></td>
         </tr>
     </table>
         <p>{{product.description}}</p>

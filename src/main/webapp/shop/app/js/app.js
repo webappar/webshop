@@ -38,6 +38,10 @@ webshop.config(['$routeProvider',
                     templateUrl: 'partials/orders/orders.html'
                     //controller: Not used
                 }).
+                when('/about', {
+                    templateUrl: 'partials/about/about.html'
+                    //controller: Not used
+                }).
                 otherwise({
                     redirectTo: '/home'
                 });
