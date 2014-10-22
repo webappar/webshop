@@ -46,7 +46,7 @@ public class OrderpriceId implements java.io.Serializable {
         this.userName = userName;
     }
 
-    @Column(name = "TotalPrice", precision = 42, scale = 0)
+    @Column(name = "totalPrice", precision = 42, scale = 0)
     public BigDecimal getTotalPrice() {
         return this.totalPrice;
     }

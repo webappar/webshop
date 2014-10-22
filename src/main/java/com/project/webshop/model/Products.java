@@ -62,7 +62,7 @@ public class Products implements java.io.Serializable {
         this.price = price;
     }
 
-    @Column(name = "Url")
+    @Column(name = "url")
     public String getUrl() {
         return this.url;
     }

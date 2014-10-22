@@ -27,7 +27,7 @@ public class Orderprice implements java.io.Serializable {
     @AttributeOverrides({
             @AttributeOverride(name = "ordNr", column = @Column(name = "ordNr", nullable = false)),
             @AttributeOverride(name = "userName", column = @Column(name = "userName", nullable = false, length = 20)),
-            @AttributeOverride(name = "totalPrice", column = @Column(name = "TotalPrice", precision = 42, scale = 0)) })
+            @AttributeOverride(name = "totalPrice", column = @Column(name = "totalPrice", precision = 42, scale = 0)) })
     public OrderpriceId getId() {
         return this.id;
     }

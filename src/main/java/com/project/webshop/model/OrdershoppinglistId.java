@@ -91,7 +91,7 @@ public class OrdershoppinglistId implements java.io.Serializable {
         this.quant = quant;
     }
 
-    @Column(name = "TotalPrice")
+    @Column(name = "totalPrice")
     public Long getTotalPrice() {
         return this.totalPrice;
     }
