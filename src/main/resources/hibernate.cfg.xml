@@ -20,12 +20,9 @@
     <!-- Mappings -->
     <mapping class="com.project.webshop.model.Customer"/>
     <mapping class="com.project.webshop.model.Orderitem"/>
-    <mapping class="com.project.webshop.model.OrderitemId"/>
     <mapping class="com.project.webshop.model.Orderprice"/>
-    <mapping class="com.project.webshop.model.OrderpriceId"/>
     <mapping class="com.project.webshop.model.Orders"/>
     <mapping class="com.project.webshop.model.Ordershoppinglist"/>
-    <mapping class="com.project.webshop.model.OrdershoppinglistId"/>
     <mapping class="com.project.webshop.model.Products"/>
   </session-factory>
 </hibernate-configuration>
