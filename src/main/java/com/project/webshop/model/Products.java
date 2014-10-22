@@ -71,7 +71,7 @@ public class Products implements java.io.Serializable {
         this.url = url;
     }
 
-    @Column(name = "Description", length = 65535)
+    @Column(name = "description", columnDefinition="TEXT", length = 65535)
     public String getDescription() {
         return this.description;
     }
