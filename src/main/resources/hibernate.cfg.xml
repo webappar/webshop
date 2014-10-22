@@ -3,8 +3,8 @@
 <hibernate-configuration>
   <session-factory>
     <!-- Database connection settings -->
-    <property name="hibernate.dialect">org.hibernate.dialect.MySQLInnoDBDialect</property>
-    <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
+    <property name="hibernate.dialect">org.hibernate.dialect.MySQL5InnoDBDialect</property>
+    <property name="hibernate.connection.driver_class">org.mariadb.jdbc.Driver</property>
     <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/webshop</property>
     <property name="hibernate.connection.username">mysqluser</property>
     <property name="hibernate.connection.password">password</property>
