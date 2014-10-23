@@ -92,6 +92,13 @@
             <artifactId>mariadb-java-client</artifactId>
             <version>1.1.7</version>
         </dependency>
+
+        <!-- UrlRewriteFilter, similar to Apache's mod_rewrite -->
+        <dependency>
+            <groupId>org.tuckey</groupId>
+            <artifactId>urlrewritefilter</artifactId>
+            <version>4.0.4</version>
+        </dependency>
     </dependencies>
     <build>
         <!-- We don't want version to be part of our war name -->
