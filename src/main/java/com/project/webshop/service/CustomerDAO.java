@@ -17,30 +17,33 @@ public class CustomerDAO extends GenericDAO<Customer, String> {
 
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
-    public void save(final JSONObject json) {
+    public Response save(final JSONObject json) {
         Customer cust = new Customer(
                 json.get("userName").toString(),
                 json.get("userEmail").toString(),
                 json.get("password").toString());
 
         super.save(cust);
+        return Response.noContent().build();
     }
 
     @PUT
     @Consumes(MediaType.APPLICATION_JSON)
-    public void update(final JSONObject json) {
+    public Response update(final JSONObject json) {
         Customer cust = new Customer(
                 json.get("userName").toString(),
                 json.get("userEmail").toString(),
                 json.get("password").toString());
 
         super.update(cust);
+        return Response.noContent().build();
     }
 
     @DELETE
     @Path("{id}")
-    public void delete(@PathParam("id") final String id) {
+    public Response delete(@PathParam("id") final String id) {
         super.delete(new Customer(id));
+        return Response.noContent().build();
     }
 
     @GET

@@ -17,28 +17,31 @@ public class OrdersDAO extends GenericDAO<Orders, Integer> {
 
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
-    public void save(final JSONObject json) {
+    public Response save(final JSONObject json) {
         Orders order = new Orders(
                 (int)json.get("ordDate"),
                 json.get("ordUser").toString());
 
         super.save(order);
+        return Response.noContent().build();
     }
 
     @PUT
     @Consumes(MediaType.APPLICATION_JSON)
-    public void update(final JSONObject json) {
+    public Response update(final JSONObject json) {
         Orders order = new Orders(
                 (int)json.get("ordDate"),
                 json.get("ordUser").toString());
 
         super.update(order);
+        return Response.noContent().build();
     }
 
     /*@DELETE
     @Path("{id}")
-    public void delete(@PathParam("id") final int id) {
+    public Response delete(@PathParam("id") final int id) {
         //super.delete(new Orders());
+        return Response.noContent().build();
     }*/
 
     @GET
