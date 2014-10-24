@@ -14,7 +14,7 @@
         </select>
     </div>
     <hr/>
-    <a href="#/product" >New Product</a>
+    <a href="/product" >New Product</a>
     <hr/>
     <div>
         <!--Body content-->
@@ -34,7 +34,7 @@
             <tr ng-repeat="product in products | filter:query" ng-class-odd="'odd'"
                 ng-class-even="'even'" >
                 <td>{{product.artNr}}</td>
-                <td><a href="#/products/{{product.artNr}}">{{product.proName}}</a></td>
+                <td><a ng-href="/products/{{product.artNr}}">{{product.proName}}</a></td>
                 <td>{{product.price}}</td>
                 <td>{{product.url}}</td>
                 <td>{{product.description}}</td>

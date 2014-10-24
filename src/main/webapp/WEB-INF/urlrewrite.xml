@@ -11,7 +11,7 @@
 <urlrewrite>
 
     <rule>
-        <from>^/home$|^/products$|^/customers$|^/orders$|^/about$</from>
+        <from>^/home$|^/products$|^/products/[0-9]+$|^/customers$|^/orders$|^/about$</from>
         <to type="redirect">%{context-path}/shop/app/</to>
     </rule>
 
