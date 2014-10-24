@@ -6,5 +6,30 @@ and open the template in the editor.
 -->
 <div>
         <!--Body content-->
-        <h2>Customers</h2>
+        <h2>Customer detail</h2>
+        
+        <table class="table">
+        <tr>
+            <td>Username</td>
+            <td>
+                <input ng-model="customer.userName" type="text" value="{{customer.userName}}" disabled/>
+            </td>
+        <tr>
+            <td>E-mail</td>
+            <td>
+                <input ng-model="customer.userEmail" type="text" value="{{customer.userEmail}}"/>
+            </td>
+        </tr>
+        <tr>
+            <td>Password</td>
+            <td>
+                <input ng-model="customer.password" type="text" value="{{customer.password}}"/>
+            </td>
+        </tr>
+    </table>
+    <div class="btn-group">
+        <button class="btn btn-default" ng-click="update()">
+            Update
+        </button>
+    </div>
 </div>

@@ -12,4 +12,17 @@ and open the template in the editor.
         awesome items in our awesome shop! If you are new here, please
          register an account for future useage. <br>If you have been here before,
          check out your new offers for some crazy deals.</p>
+        
+        <div>
+            <input ng-model="$parent.user.name" type="text" size="10" placeholder="Username"/>
+            <input ng-model="$parent.user.password" type="password" size="10" placeholder="Password"/>
+            <div class="btn-group">
+                <button class="btn btn-default" ng-click="login()">
+                    Login
+                </button>
+                <button class="btn btn-default" ng-click="logout()">
+                    Logout
+                </button>
+            </div>
+        </div>
 </div>

@@ -6,7 +6,8 @@
 var webshop = angular.module('WebShop', [
     'ngRoute',
     'WebShopControllers',
-    'WebShopService'
+    'WebShopService',
+    'ngCookies'
     // More here
 ]);
 
@@ -16,8 +17,8 @@ webshop.config(['$routeProvider', '$locationProvider',
 
         $routeProvider.
                 when('/home', {
-                    templateUrl: 'shop/app/partials/home/home.html'
-                    //controller: Not used
+                    templateUrl: 'shop/app/partials/home/home.html',
+                    controller: 'LoginCtrl'
                 }).
                 when('/products', {
                     templateUrl: 'shop/app/partials/products/products.html',
@@ -32,8 +33,8 @@ webshop.config(['$routeProvider', '$locationProvider',
                     controller: 'ProductNewCtrl'
                 }).
                 when('/customers', {
-                    templateUrl: 'shop/app/partials/customers/customers.html'
-                    //controller: Not used
+                    templateUrl: 'shop/app/partials/customers/customers.html',
+                    controller: 'CustomerDetailCtrl'
                 }).
                 when('/orders', {
                     templateUrl: 'shop/app/partials/orders/orders.html'

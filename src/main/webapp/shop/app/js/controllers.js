@@ -84,3 +84,37 @@ webShopControllers.controller('ProductNewCtrl', ['$scope',
             });
         };
     }]);
+
+webShopControllers.controller('LoginCtrl', ['$scope', 'Auth', '$location',
+    function($scope, Auth, $location) {
+        $scope.login = function() {
+            Auth.setCredentials($scope.user.name, $scope.user.password);
+            $location.path("/home");
+        };
+
+        $scope.logout = function() {
+            Auth.clearCredentials();
+            $location.path("/home");
+        };
+    }]);
+
+webShopControllers.controller('CustomerDetailCtrl', ['$scope',
+    '$location', 'CustomerProxy', '$cookies',
+    function($scope, $location, CustomerProxy, $cookies) {
+        CustomerProxy.find($cookies.username)
+                .success(function(customer) {
+                    $scope.customer = customer;
+                }).error(function() {
+            //console.log("selectByPk: error");
+        });
+
+        // A listener
+        $scope.update = function() {
+            CustomerProxy.update($scope.customer)
+                    .success(function() {
+                        $location.path('/customers');
+                    }).error(function() {
+                ; // TODO;
+            });
+        };
+    }]);
