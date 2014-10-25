@@ -70,6 +70,9 @@ webShopControllers.controller('ProductDetailCtrl', ['$scope',
                 ; // TODO;
             });
         };
+        $scope.addToCart = function() {
+            CartService.updateCart($scope.product);
+        }
     }]);
 
 webShopControllers.controller('ProductNewCtrl', ['$scope',
@@ -86,7 +89,7 @@ webShopControllers.controller('ProductNewCtrl', ['$scope',
     }]);
 
 //Login controller for /home
-webShopControllers.controller('LoginCtrl', ['$scope', 'Auth', '$location',
+webShopControllers.controller('LoginCtrl', ['$scope', 'Auth', '$location', 
     function($scope, Auth, $location) {
         $scope.loggedIn = Auth.checkCredentials();
         $scope.login = function() {
