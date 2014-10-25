@@ -28,7 +28,7 @@
         <table class="table">
             <thead>
             <tr>
-                <td>Art.Nr</td><td>Name</td><td>Price</td><td>URL</td><td>Description</td>
+                <td>Art.Nr</td><td>Name</td><td>Price</td><td>URL</td>
             </tr>
             </thead>
             <tr ng-repeat="product in products | filter:query" ng-class-odd="'odd'"
@@ -36,8 +36,7 @@
                 <td>{{product.artNr}}</td>
                 <td><a ng-href="/products/{{product.artNr}}">{{product.proName}}</a></td>
                 <td>{{product.price}}</td>
-                <td>{{product.url}}</td>
-                <td>{{product.description}}</td>
+                <td> <img ng-src="shop/app/img/{{product.url}}" alt="{{product.proName}}" height="100" width="150"> </td>
             </tr>
         </table>
         <div class="btn-group">
