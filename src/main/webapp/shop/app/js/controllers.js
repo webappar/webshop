@@ -45,15 +45,15 @@ webShopControllers.controller('ProductListCtrl', ['$scope', 'WebShopProxy',
     }]);
 
 webShopControllers.controller('ProductDetailCtrl', ['$scope',
-    '$location', '$routeParams', 'WebShopProxy',
-    function($scope, $location, $routeParams, WebShopProxy) {
+    '$location', '$routeParams', 'WebShopProxy', 'CartService', 'Auth',
+    function($scope, $location, $routeParams, WebShopProxy, CartService, Auth) {
         WebShopProxy.find($routeParams.id)
                 .success(function(product) {
                     $scope.product = product;
                 }).error(function() {
             console.log("selectByPk: error");
         });
-
+        $scope.loggedIn = Auth.checkCredentials();
         // A listener
         $scope.update = function() {
             WebShopProxy.update($routeParams.id, $scope.product)
@@ -63,7 +63,7 @@ webShopControllers.controller('ProductDetailCtrl', ['$scope',
                 ; // TODO;
             });
         };
-        // A listener
+        //Currently not in use
         $scope.delete = function() {
             // Really delete?? message
             WebShopProxy.delete($routeParams.id)
@@ -74,8 +74,8 @@ webShopControllers.controller('ProductDetailCtrl', ['$scope',
             });
         };
         $scope.addToCart = function() {
-            CartService.updateCart($scope.product);
-        }
+            CartService.updateCart($scope.product, false);
+        };
     }]);
 
 webShopControllers.controller('ProductNewCtrl', ['$scope',
@@ -110,25 +110,19 @@ webShopControllers.controller('LoginCtrl', ['$scope', 'Auth', '$location',
     }]);
 
 webShopControllers.controller('CustomerDetailCtrl', ['$scope',
-    '$location', 'CustomerProxy', '$cookies', 'Auth',
-    function($scope, $location, CustomerProxy, $cookies, Auth) {
+    '$location', 'CustomerProxy', 'Auth',
+    function($scope, $location, CustomerProxy, Auth) {
         if(!Auth.checkCredentials()){
             $location.path('/home');
         }
-        CustomerProxy.find($cookies.username)
-                .success(function(customer) {
-                    $scope.customer = customer;
-                }).error(function() {
-            //console.log("selectByPk: error");
-        });
-
-        // A listener
+        $scope.customer = Auth.getCredentials();
         $scope.update = function() {
             CustomerProxy.update($scope.customer)
                     .success(function() {
+                        Auth.updateCredentials();
                         $location.path('/customers');
                     }).error(function() {
-                ; // TODO;
+                ;
             });
         };
     }]);
@@ -146,5 +140,23 @@ webShopControllers.controller('CustomerNewCtrl', ['$scope',
         };
         $scope.cancel = function(){
             $location.path('/home');
+        };
+    }]);
+
+webShopControllers.controller('OrderCtrl', ['$scope', 'CartService', '$route', '$location', 'Auth',
+    function($scope, CartService, $route, $location, Auth) {
+        if(!Auth.checkCredentials()){
+            $location.path('/home');
+        }
+        $scope.products = CartService.getCart();
+        $scope.cost = CartService.calculateCost();
+        $scope.removeFromCart = function(product) {
+            CartService.updateCart(product, true);
+            $route.reload();
+        };
+        $scope.checkout =function(){
+            CartService.emptyCart();
+            alert('All the awesome stuffs are headed your way!');
+            $route.reload();
         };
     }]);

@@ -70,15 +70,16 @@ webShopService.factory('CustomerProxy', ['$http',
     }]);
 
 //Auth service
-webShopService.factory('Auth', ['$cookies', 'CustomerProxy',
-    function($cookies, CustomerProxy) {
+webShopService.factory('Auth', ['$cookieStore', 'CustomerProxy', 'CartService',
+    function($cookieStore, CustomerProxy, CartService) {
      
         return {
             //Check password, set cookie
             setCredentials: function(username, password) {
                 CustomerProxy.find(username).success(function(user){
                     if(password === user.password){
-                        $cookies.username = username;
+                        $cookieStore.put('currentUser', user);
+                        CartService.createCart();
                     }
                 }).error(function(){
                     alert('Database error!');
@@ -86,14 +87,78 @@ webShopService.factory('Auth', ['$cookies', 'CustomerProxy',
             },
             //Clear cookie
             clearCredentials: function() {
-                $cookies.username = "";
+                $cookieStore.remove('currentUser');
+                CartService.destroyCart();
             },
             //Check if logged in
             checkCredentials: function() {
-                if($cookies.username == "" || $cookies.username == null){
-                    return false;
+                if($cookieStore.get('currentUser')){
+                    return true;
                 }
-                return true;
+                return false;
+            },
+            getCredentials: function() {
+                return $cookieStore.get('currentUser');
+            },
+            updateCredentials: function() {
+                var user = $cookieStore.get('currentUser');
+                $cookieStore.remove('CurrentUser');
+                CustomerProxy.find(user.userName).success(function(updated_user) {
+                    $cookieStore.put('currentUser', updated_user);
+                }).error(function() {
+                    alert('Something went horribly wrong');
+                });
+            }
+        };
+    }]);
+
+webShopService.factory('CartService', ['$cookieStore',
+    function($cookieStore) {
+     
+        return {
+            updateCart: function(product, remove) {
+                var list = $cookieStore.get('shoppingCart');
+                for(var i = 0; i < list.length; i++){
+                    if(list[i].artNr == product.artNr){
+                        if(remove){
+                            list.splice(i, 1);
+                            $cookieStore.remove('shoppingCart');
+                            $cookieStore.put('shoppingCart', list);
+                            alert('Product removed!');
+                        }
+                        else {
+                            alert('You\'re already trying to buy that!');
+                        }
+                        return;
+                    }
+                }
+                $cookieStore.remove('shoppingCart');
+                list[list.length] = product;
+                $cookieStore.put('shoppingCart', list);
+                alert('Added to cart!');
+            },
+            createCart: function() {
+                var list = [];
+                $cookieStore.put('shoppingCart', list);
+            },
+            destroyCart: function() {
+                $cookieStore.remove('shoppingCart');
+            },
+            emptyCart: function() {
+                $cookieStore.remove('shoppingCart');
+                var list = [];
+                $cookieStore.put('shoppingCart', list);
+            },
+            getCart: function() {
+                return $cookieStore.get('shoppingCart');
+            },
+            calculateCost: function() {
+                var list = $cookieStore.get('shoppingCart');
+                var cost = 0;
+                for(var i = 0; i < list.length; i++){
+                    cost = cost + list[i].price;
+                }
+                return cost;
             }
         };
     }]);

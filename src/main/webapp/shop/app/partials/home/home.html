@@ -14,13 +14,11 @@ and open the template in the editor.
          check out your new offers for some crazy deals.</p>
         <br>
         <div ng-show="!loggedIn">
-            <input ng-model="$parent.user.name" type="text" size="10" placeholder="Username"/>
-            <input ng-model="$parent.user.password" type="password" size="10" placeholder="Password"/>
-            <div class="btn-group">
+            <input ng-model="$parent.user.name" type="text" size="10" placeholder="Username" />
+            <input ng-model="$parent.user.password" type="password" size="10" placeholder="Password" />
                 <button class="btn btn-default" ng-click="login()">
                     Login
                 </button>
-            </div>
             <a href="/register">Register</a>
         </div>
         <div ng-show="loggedIn">

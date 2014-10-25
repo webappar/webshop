@@ -13,10 +13,9 @@ and open the template in the editor.
         
         <table class="table">
         <tr>
-            <td rowspan ="3">
+            <td rowspan ="4">
                 <img ng-src="shop/app/img/{{product.url}}" alt="{{product.proName}}" height="200" width="300">
             </td>  
-       
             <td>art.Nr</td>
             <td>
                 <input ng-model="product.artNr" type="number" value="{{product.artNr}}" disabled/>
@@ -31,6 +30,14 @@ and open the template in the editor.
             <td>Price</td>
             <td>
                 <input ng-model="product.price" type="number" value="{{product.price}}" disabled/>
+            </td>
+        </tr>
+        <tr>
+            <td></td>
+            <td>
+                <button class="btn btn-default" ng-click="addToCart()" ng-show="loggedIn">
+                    Purchase
+                </button>
             </td>
         </tr>
         <tr>

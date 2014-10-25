@@ -41,8 +41,8 @@ webshop.config(['$routeProvider', '$locationProvider',
                     controller: 'CustomerNewCtrl'
                 }).
                 when('/orders', {
-                    templateUrl: 'shop/app/partials/orders/orders.html'
-                    //controller: Not used
+                    templateUrl: 'shop/app/partials/orders/orders.html',
+                    controller: 'OrderCtrl'
                 }).
                 when('/about', {
                     templateUrl: 'shop/app/partials/about/about.html'
