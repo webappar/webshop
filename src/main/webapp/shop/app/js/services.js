@@ -45,7 +45,7 @@ webShopService.factory('CustomerProxy', ['$http',
             },
             update: function(customer) {
                 return $http({
-                            url: 'http://localhost:8080/rest/customer',
+                            url: url,
                             method: 'PUT',
                             headers: { 'Content-Type': 'application/json' },
                             data: { userName: customer.userName, 
@@ -54,14 +54,27 @@ webShopService.factory('CustomerProxy', ['$http',
                                 }
                             });
                 //return $http.put(url + "/" + customer);
+            },
+            save: function(customer) {
+                return $http({
+                            url: url,
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            data: { userName: customer.userName,
+                                    userEmail: customer.userEmail,
+                                    password: customer.password
+                               }
+                });
             }
         };
     }]);
 
+//Auth service
 webShopService.factory('Auth', ['$cookies', 'CustomerProxy',
     function($cookies, CustomerProxy) {
      
         return {
+            //Check password, set cookie
             setCredentials: function(username, password) {
                 CustomerProxy.find(username).success(function(user){
                     if(password === user.password){
@@ -71,12 +84,13 @@ webShopService.factory('Auth', ['$cookies', 'CustomerProxy',
                     alert('Database error!');
                 });
             },
+            //Clear cookie
             clearCredentials: function() {
                 $cookies.username = "";
             },
-            
+            //Check if logged in
             checkCredentials: function() {
-                if($cookies.username == ""){
+                if($cookies.username == "" || $cookies.username == null){
                     return false;
                 }
                 return true;

@@ -36,6 +36,10 @@ webshop.config(['$routeProvider', '$locationProvider',
                     templateUrl: 'shop/app/partials/customers/customers.html',
                     controller: 'CustomerDetailCtrl'
                 }).
+                when('/register', {
+                    templateUrl: 'shop/app/partials/customers/register.html',
+                    controller: 'CustomerNewCtrl'
+                }).
                 when('/orders', {
                     templateUrl: 'shop/app/partials/orders/orders.html'
                     //controller: Not used

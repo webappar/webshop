@@ -85,22 +85,30 @@ webShopControllers.controller('ProductNewCtrl', ['$scope',
         };
     }]);
 
+//Login controller for /home
 webShopControllers.controller('LoginCtrl', ['$scope', 'Auth', '$location',
     function($scope, Auth, $location) {
+        $scope.loggedIn = Auth.checkCredentials();
         $scope.login = function() {
             Auth.setCredentials($scope.user.name, $scope.user.password);
-            $location.path("/home");
+            $scope.loggedIn = Auth.checkCredentials();
+            //Weirdness ensues, have to click button twice to update view
+            //$location.path("/home");
         };
 
         $scope.logout = function() {
             Auth.clearCredentials();
-            $location.path("/home");
+            $scope.loggedIn = Auth.checkCredentials();
+            //$location.path("/home");
         };
     }]);
 
 webShopControllers.controller('CustomerDetailCtrl', ['$scope',
-    '$location', 'CustomerProxy', '$cookies',
-    function($scope, $location, CustomerProxy, $cookies) {
+    '$location', 'CustomerProxy', '$cookies', 'Auth',
+    function($scope, $location, CustomerProxy, $cookies, Auth) {
+        if(!Auth.checkCredentials()){
+            $location.path('/home');
+        }
         CustomerProxy.find($cookies.username)
                 .success(function(customer) {
                     $scope.customer = customer;
@@ -116,5 +124,21 @@ webShopControllers.controller('CustomerDetailCtrl', ['$scope',
                     }).error(function() {
                 ; // TODO;
             });
+        };
+    }]);
+
+webShopControllers.controller('CustomerNewCtrl', ['$scope',
+    '$location', 'CustomerProxy',
+    function($scope, $location, CustomerProxy) {
+        $scope.register = function() {
+            CustomerProxy.save($scope.user)
+                    .success(function() {
+                        $location.path('/home');
+                    }).error(function() {
+                console.log("create: error");
+            });
+        };
+        $scope.cancel = function(){
+            $location.path('/home');
         };
     }]);
