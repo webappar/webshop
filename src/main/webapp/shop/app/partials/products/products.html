@@ -6,21 +6,18 @@
         Search: <input ng-model="query" ng_keydown="doKey($event)" >
         Sort by:
         <select ng-model="orderProp">
-            <option value="artNr">Art.Nr</option>
-            <option value="proName">Name</option>
-            <option value="price">Price</option>
-            <option value="url">URL</option>
-            <option value="description">Description</option>
+            <option value="artNr" ng-click="sortBy = 'artNr'">Art.Nr</option>
+            <option value="proName" ng-click="sortBy = 'proName'">Name</option>
+            <option value="price" ng-click="sortBy = 'price'">Price</option>
         </select>
     </div>
-    <hr/>
-    <a href="/product" >New Product</a>
     <hr/>
     <div>
         <!--Body content-->
         <h2>Product List</h2>
         Rows:
         <select ng-model="pageSize">
+            <option value="5">5</option>
             <option value="10">10</option>
             <option value="15">15</option>
             <option value="20">20</option>
@@ -31,7 +28,7 @@
                 <td>Art.Nr</td><td>Name</td><td>Price</td><td>URL</td>
             </tr>
             </thead>
-            <tr ng-repeat="product in products | filter:query" ng-class-odd="'odd'"
+            <tr ng-repeat="product in products | filter:query | orderBy:sortBy" ng-class-odd="'odd'"
                 ng-class-even="'even'" >
                 <td>{{product.artNr}}</td>
                 <td><a ng-href="/products/{{product.artNr}}">{{product.proName}}</a></td>
