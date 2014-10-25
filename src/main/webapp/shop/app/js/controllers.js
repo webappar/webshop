@@ -18,7 +18,7 @@ webShopControllers.controller('NavigationCtrl', ['$scope', '$location',
 webShopControllers.controller('ProductListCtrl', ['$scope', 'WebShopProxy',
     function($scope, WebShopProxy) {
         $scope.orderProp = 'artNr';
-        $scope.pageSize = '10';
+        $scope.pageSize = '5';
         $scope.currentPage = 0;
         WebShopProxy.count()
                 .success(function(count) {
@@ -28,6 +28,9 @@ webShopControllers.controller('ProductListCtrl', ['$scope', 'WebShopProxy',
         });
         getRange();
         $scope.$watch('currentPage', function() {
+            getRange();
+        });
+        $scope.$watch('pageSize', function() {
             getRange();
         });
         function getRange() {
