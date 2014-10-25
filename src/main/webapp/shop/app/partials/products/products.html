@@ -6,9 +6,9 @@
         Search: <input ng-model="query" ng_keydown="doKey($event)" >
         Sort by:
         <select ng-model="orderProp">
-            <option value="artNr" ng-click="sortBy = 'artNr'">Art.Nr</option>
-            <option value="proName" ng-click="sortBy = 'proName'">Name</option>
-            <option value="price" ng-click="sortBy = 'price'">Price</option>
+            <option value="artNr">Art.Nr</option>
+            <option value="proName">Name</option>
+            <option value="price">Price</option>
         </select>
     </div>
     <hr/>
@@ -28,7 +28,7 @@
                 <td>Art.Nr</td><td>Name</td><td>Price</td><td>URL</td>
             </tr>
             </thead>
-            <tr ng-repeat="product in products | filter:query | orderBy:sortBy" ng-class-odd="'odd'"
+            <tr ng-repeat="product in products | filter:query | orderBy:orderProp" ng-class-odd="'odd'"
                 ng-class-even="'even'" >
                 <td>{{product.artNr}}</td>
                 <td><a ng-href="/products/{{product.artNr}}">{{product.proName}}</a></td>
