@@ -1,0 +1,15 @@
+<div>
+        <h2>Order details</h2>
+        
+         <table class="table">
+            <thead>
+            <tr>
+                <td>Product</td>
+            </tr>
+            </thead>
+            <tr ng-repeat="orderitem in orderitems" ng-class-odd="'odd'"
+                ng-class-even="'even'">
+                <td ng-if="orderitem.id.ordNr == ordNr"><a ng-href="/products/{{orderitem.id.artNr}}">{{orderitem.id.artNr}}</a></td>
+            </tr>
+        </table>
+</div>

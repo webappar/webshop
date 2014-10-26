@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC "-//Hibernate/Hibernate Configuration DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+  <session-factory>
+    <!-- Database connection settings -->
+    <property name="hibernate.dialect">org.hibernate.dialect.MySQL5InnoDBDialect</property>
+    <property name="hibernate.connection.driver_class">org.mariadb.jdbc.Driver</property>
+    <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/webshop</property>
+    <property name="hibernate.connection.username">mysqluser</property>
+    <property name="hibernate.connection.password">password</property>
+    <!-- Echo all executed SQL to stdout -->
+    <property name="hibernate.show_sql">true</property>
+    <property name="hibernate.current_session_context_class">thread</property>
+    <!-- Use the new HQL/SQL query translator -->
+    <property name="hibernate.query.factory_class">org.hibernate.hql.internal.ast.ASTQueryTranslatorFactory</property>
+    <!-- C3P0 connection pool instead of Hibernate's internal default connection pool -->
+    <property name="hibernate.connection.provider_class">org.hibernate.c3p0.internal.C3P0ConnectionProvider</property>
+    <!-- Create tables and import SQL file -->
+    <property name="hibernate.hbm2ddl.auto">create</property>
+    <!-- Mappings -->
+    <mapping class="com.project.webshop.model.Customer"/>
+    <mapping class="com.project.webshop.model.Orderitem"/>
+    <mapping class="com.project.webshop.model.Orderprice"/>
+    <mapping class="com.project.webshop.model.Orders"/>
+    <mapping class="com.project.webshop.model.Ordershoppinglist"/>
+    <mapping class="com.project.webshop.model.Products"/>
+  </session-factory>
+</hibernate-configuration>

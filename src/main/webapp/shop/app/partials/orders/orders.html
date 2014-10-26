@@ -1,0 +1,17 @@
+<div>
+        <h2>Orders</h2>
+        
+         <table class="table">
+            <thead>
+            <tr>
+                <td>Order Number</td><td>Date</td>
+            </tr>
+            </thead>
+            <tr ng-repeat="order in orders" ng-class-odd="'odd'"
+                ng-class-even="'even'" >
+                <td ng-if="order.ordUser === customer.userName"><a ng-href="/orders/{{order.ordNr}}">{{order.ordNr}}</a></td>
+                <td ng-if="order.ordUser === customer.userName">{{order.ordDate}}</td>
+            </tr>
+        </table>
+</div>
+

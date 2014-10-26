@@ -1,0 +1,41 @@
+<div>
+        <button class="btn btn-default" onclick="window.history.back()">
+            Back
+        </button>
+        <h2>Products detail</h2>
+        
+        <table class="table">
+        <tr>
+            <td rowspan ="4">
+                <img ng-src="shop/app/img/{{product.url}}" alt="{{product.proName}}" height="200" width="300">
+            </td>  
+            <td>art.Nr</td>
+            <td>
+                <input ng-model="product.artNr" type="number" value="{{product.artNr}}" disabled/>
+            </td>
+        <tr>
+            <td>Product Name</td>
+            <td>
+                <input ng-model="product.proName" type="text" value="{{product.proName}}" disabled/>
+            </td>
+        </tr>
+        <tr>
+            <td>Price</td>
+            <td>
+                <input ng-model="product.price" type="number" value="{{product.price}}" disabled/>
+            </td>
+        </tr>
+        <tr>
+            <td></td>
+            <td>
+                <button class="btn btn-default" ng-click="addToCart()" ng-show="loggedIn">
+                    Purchase
+                </button>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="3"><h3>Description</h3></td>
+        </tr>
+    </table>
+        <p>{{product.description}}</p>
+</div>

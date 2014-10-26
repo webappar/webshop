@@ -1,0 +1,22 @@
+<div>
+        <h2>Home</h2>
+        
+        <p>Welcome to AwesomeShop Deluxe ltd.<br><br>Here you can find
+        awesome items in our awesome shop! If you are new here, please
+         register an account for future useage. <br>If you have been here before,
+         check out your new offers for some crazy deals.</p>
+        <br>
+        <div ng-show="!loggedIn">
+            <input ng-model="$parent.user.name" type="text" size="10" placeholder="Username" />
+            <input ng-model="$parent.user.password" type="password" size="10" placeholder="Password" />
+                <button class="btn btn-default" ng-click="login()">
+                    Login
+                </button>
+            <a href="/register">Register</a>
+        </div>
+        <div ng-show="loggedIn">
+                <button class="btn btn-default" ng-click="logout()">
+                    Logout
+                </button>
+        </div>
+</div>

@@ -1,0 +1,51 @@
+<div>
+
+    <h2>Products</h2>
+
+    <div>
+        Search: <input ng-model="query" ng_keydown="doKey($event)" >
+        Sort by:
+        <select ng-model="orderProp">
+            <option value="artNr">Art.Nr</option>
+            <option value="proName">Name</option>
+            <option value="price">Price</option>
+        </select>
+    </div>
+    <hr/>
+    <div>
+        <!--Body content-->
+        <h2>Product List</h2>
+        Rows:
+        <select ng-model="pageSize">
+            <option value="5">5</option>
+            <option value="10">10</option>
+            <option value="15">15</option>
+            <option value="20">20</option>
+        </select>
+        <table class="table">
+            <thead>
+            <tr>
+                <td>Art.Nr</td><td>Name</td><td>Price</td><td>URL</td>
+            </tr>
+            </thead>
+            <tr ng-repeat="product in products | filter:query | orderBy:orderProp" ng-class-odd="'odd'"
+                ng-class-even="'even'" >
+                <td>{{product.artNr}}</td>
+                <td><a ng-href="/products/{{product.artNr}}">{{product.proName}}</a></td>
+                <td>{{product.price}}</td>
+                <td><img ng-src="shop/app/img/{{product.url}}" alt="{{product.proName}}" height="100" width="150"></td>
+            </tr>
+        </table>
+        <div class="btn-group">
+            <button class="btn btn-default" ng-disabled="currentPage === 0"
+                    ng-click="currentPage = currentPage - 1">
+                Previous
+            </button>
+            <button class="btn btn-default"
+                    ng-disabled="currentPage >= count / pageSize - 1"
+                    ng-click="currentPage = currentPage + 1">
+                Next
+            </button>
+        </div>
+    </div>
+</div>
