@@ -6,7 +6,7 @@
 
 var webShopControllers = angular.module('WebShopControllers', []);
 
-// General navigation controller (possibly useful?)
+// General navigation controller
 webShopControllers.controller('NavigationCtrl', ['$scope', '$location',
     function($scope, $location) {
         $scope.navigate = function(url) {
@@ -14,7 +14,7 @@ webShopControllers.controller('NavigationCtrl', ['$scope', '$location',
         };
     }]);
 
-
+//Product list display controller
 webShopControllers.controller('ProductListCtrl', ['$scope', 'WebShopProxy',
     function($scope, WebShopProxy) {
         $scope.orderProp = 'artNr';
@@ -53,41 +53,11 @@ webShopControllers.controller('ProductDetailCtrl', ['$scope',
                 }).error(function() {
             console.log("selectByPk: error");
         });
+        //Determine login status in order to display purchase button
         $scope.loggedIn = Auth.checkCredentials();
-        // A listener
-        $scope.update = function() {
-            WebShopProxy.update($routeParams.id, $scope.product)
-                    .success(function() {
-                        $location.path('/products');
-                    }).error(function() {
-                ; // TODO;
-            });
-        };
-        //Currently not in use
-        $scope.delete = function() {
-            // Really delete?? message
-            WebShopProxy.delete($routeParams.id)
-                    .success(function() {
-                        $location.path('/products');
-                    }).error(function() {
-                ; // TODO;
-            });
-        };
+        
         $scope.addToCart = function() {
             CartService.updateCart($scope.product, false);
-        };
-    }]);
-
-webShopControllers.controller('ProductNewCtrl', ['$scope',
-    '$location', 'WebShopProxy',
-    function($scope, $location, WebShopProxy) {
-        $scope.save = function() {
-            WebShopProxy.create($scope.product)
-                    .success(function() {
-                        $location.path('/products');
-                    }).error(function() {
-                console.log("create: error");
-            });
         };
     }]);
 
@@ -99,19 +69,19 @@ webShopControllers.controller('LoginCtrl', ['$scope', 'Auth', '$location',
             Auth.setCredentials($scope.user.name, $scope.user.password);
             $scope.loggedIn = Auth.checkCredentials();
             //Weirdness ensues, have to click button twice to update view
-            //$location.path("/home");
         };
 
         $scope.logout = function() {
             Auth.clearCredentials();
             $scope.loggedIn = Auth.checkCredentials();
-            //$location.path("/home");
         };
     }]);
 
+//Control for updating user credentials
 webShopControllers.controller('CustomerDetailCtrl', ['$scope',
     '$location', 'CustomerProxy', 'Auth',
     function($scope, $location, CustomerProxy, Auth) {
+        //If not logged in, send to login page
         if(!Auth.checkCredentials()){
             $location.path('/home');
         }
@@ -119,6 +89,7 @@ webShopControllers.controller('CustomerDetailCtrl', ['$scope',
         $scope.update = function() {
             CustomerProxy.update($scope.customer)
                     .success(function() {
+                        //Update cookie
                         Auth.updateCredentials();
                         $location.path('/customers');
                     }).error(function() {
@@ -126,7 +97,7 @@ webShopControllers.controller('CustomerDetailCtrl', ['$scope',
             });
         };
     }]);
-
+//Control for registration
 webShopControllers.controller('CustomerNewCtrl', ['$scope',
     '$location', 'CustomerProxy',
     function($scope, $location, CustomerProxy) {
@@ -143,17 +114,22 @@ webShopControllers.controller('CustomerNewCtrl', ['$scope',
         };
     }]);
 
+//Control for the Orders page
 webShopControllers.controller('OrderCtrl', ['$scope', 'CartService', '$route', '$location', 'Auth',
     function($scope, CartService, $route, $location, Auth) {
+        //If not logged in, send to login page
         if(!Auth.checkCredentials()){
             $location.path('/home');
         }
+        //Set cart and cost of cart
         $scope.products = CartService.getCart();
         $scope.cost = CartService.calculateCost();
+        
         $scope.removeFromCart = function(product) {
             CartService.updateCart(product, true);
             $route.reload();
         };
+        //Buy the stuff
         $scope.checkout =function(){
             CartService.emptyCart();
             alert('All the awesome stuffs are headed your way!');

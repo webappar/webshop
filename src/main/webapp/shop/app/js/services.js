@@ -20,15 +20,6 @@ webShopService.factory('WebShopProxy', ['$http',
             find: function(id) {
                 return $http.get(url + "/" + id);
             },
-            update: function(id, product) {
-                return $http.put(url + "/" + id, product);
-            },
-            create: function(product) {
-                return $http.post(url, product);
-            },
-            delete: function(id) {
-                return $http.delete(url + "/" + id);
-            },
             count: function() {
                 return $http.get(url + "/count");
             }
@@ -40,9 +31,11 @@ webShopService.factory('CustomerProxy', ['$http',
         
         var url = 'http://localhost:8080/rest/customer';
         return {
+            //Find a customer
             find: function(id) {
                 return $http.get(url + "/" + id);
             },
+            //Update a customer
             update: function(customer) {
                 return $http({
                             url: url,
@@ -55,6 +48,7 @@ webShopService.factory('CustomerProxy', ['$http',
                             });
                 //return $http.put(url + "/" + customer);
             },
+            //Create new customer
             save: function(customer) {
                 return $http({
                             url: url,
@@ -97,25 +91,30 @@ webShopService.factory('Auth', ['$cookieStore', 'CustomerProxy', 'CartService',
                 }
                 return false;
             },
+            //retrieve user from cookies
             getCredentials: function() {
                 return $cookieStore.get('currentUser');
             },
+            //if user credentials are updated, update cookie
             updateCredentials: function() {
                 var user = $cookieStore.get('currentUser');
                 $cookieStore.remove('CurrentUser');
                 CustomerProxy.find(user.userName).success(function(updated_user) {
                     $cookieStore.put('currentUser', updated_user);
                 }).error(function() {
+                    //Shouldn't happen
                     alert('Something went horribly wrong');
                 });
             }
         };
     }]);
-
+//Shopping cart service
 webShopService.factory('CartService', ['$cookieStore',
     function($cookieStore) {
      
         return {
+            //Update the shopping cart, either add or remove a product
+            //if remove == true, then remove a product, if false add a product
             updateCart: function(product, remove) {
                 var list = $cookieStore.get('shoppingCart');
                 for(var i = 0; i < list.length; i++){
@@ -137,21 +136,26 @@ webShopService.factory('CartService', ['$cookieStore',
                 $cookieStore.put('shoppingCart', list);
                 alert('Added to cart!');
             },
+            //set empty cart as a cookie
             createCart: function() {
                 var list = [];
                 $cookieStore.put('shoppingCart', list);
             },
+            //destroys the cart, only use on logout
             destroyCart: function() {
                 $cookieStore.remove('shoppingCart');
             },
+            //Used for checking out, removes cart and creates a new empty one
             emptyCart: function() {
                 $cookieStore.remove('shoppingCart');
                 var list = [];
                 $cookieStore.put('shoppingCart', list);
             },
+            //Retrieve the cart from cookies
             getCart: function() {
                 return $cookieStore.get('shoppingCart');
             },
+            //For displaying total cost of curren cart
             calculateCost: function() {
                 var list = $cookieStore.get('shoppingCart');
                 var cost = 0;
