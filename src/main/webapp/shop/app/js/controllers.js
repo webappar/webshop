@@ -114,8 +114,8 @@ webShopControllers.controller('CustomerNewCtrl', ['$scope',
         };
     }]);
 
-//Control for the Orders page
-webShopControllers.controller('OrderCtrl', ['$scope', 'CartService', '$route', '$location', 'Auth',
+//Control for the shopping cart
+webShopControllers.controller('CartCtrl', ['$scope', 'CartService', '$route', '$location', 'Auth',
     function($scope, CartService, $route, $location, Auth) {
         //If not logged in, send to login page
         if(!Auth.checkCredentials()){
@@ -135,4 +135,32 @@ webShopControllers.controller('OrderCtrl', ['$scope', 'CartService', '$route', '
             alert('All the awesome stuffs are headed your way!');
             $route.reload();
         };
+    }]);
+
+//Control for the orders page
+webShopControllers.controller('OrdersCtrl', ['$scope', 'OrdersProxy', '$location', 'Auth',
+    function($scope, OrdersProxy, $location, Auth) {
+        //If not logged in, send to login page
+        if(!Auth.checkCredentials()){
+            $location.path('/home');
+        }
+        $scope.customer = Auth.getCredentials();
+        OrdersProxy.findAll()
+                    .success(function(orders) {
+                        $scope.orders = orders;
+                    }).error(function() {
+                alert('Error!');
+            });
+    }]);
+
+//Control for orders-detail page
+webShopControllers.controller('OrdersDetailCtrl', ['$scope', 'OrderitemProxy', '$routeParams',
+    function($scope, OrdersProxy, $routeParams) {
+        $scope.ordNr = $routeParams.id;
+        OrdersProxy.findAll()
+                    .success(function(orderitems) {
+                        $scope.orderitems = orderitems;
+                    }).error(function() {
+                alert('Error!');
+            });
     }]);

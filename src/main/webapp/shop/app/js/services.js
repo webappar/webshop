@@ -166,3 +166,27 @@ webShopService.factory('CartService', ['$cookieStore',
             }
         };
     }]);
+
+webShopService.factory('OrdersProxy', ['$http',
+    function($http) {
+        
+        var url = 'http://localhost:8080/rest/orders';
+        return {
+            findAll: function() {
+                return $http.get(url);
+            }
+
+        };
+    }]);
+
+webShopService.factory('OrderitemProxy', ['$http',
+    function($http) {
+        
+        var url = 'http://localhost:8080/rest/orderitem';
+        return {
+            findAll: function() {
+                return $http.get(url);
+            }
+
+        };
+    }]);

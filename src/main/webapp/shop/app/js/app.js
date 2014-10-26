@@ -42,11 +42,19 @@ webshop.config(['$routeProvider', '$locationProvider',
                 }).
                 when('/orders', {
                     templateUrl: 'shop/app/partials/orders/orders.html',
-                    controller: 'OrderCtrl'
+                    controller: 'OrdersCtrl'
+                }).
+                when('/orders/:id', {
+                    templateUrl: 'shop/app/partials/orders/order-detail.html',
+                    controller: 'OrdersDetailCtrl'
                 }).
                 when('/about', {
                     templateUrl: 'shop/app/partials/about/about.html'
                     //controller: Not used
+                }).
+                when('/cart', {
+                    templateUrl: 'shop/app/partials/cart/cart.html',
+                    controller: 'CartCtrl'
                 }).
                 otherwise({
                     redirectTo: '/home'

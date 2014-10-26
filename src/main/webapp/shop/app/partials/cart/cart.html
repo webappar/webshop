@@ -1,0 +1,28 @@
+<div>
+        <h2>Cart</h2>
+        
+         <table class="table">
+            <thead>
+            <tr>
+                <td>Art.Nr</td><td>Name</td><td>Price</td><td>URL</td><td>Options</td>
+            </tr>
+            </thead>
+            <tr ng-repeat="product in products | filter:query | orderBy:sortBy" ng-class-odd="'odd'"
+                ng-class-even="'even'" >
+                <td>{{product.artNr}}</td>
+                <td><a ng-href="/products/{{product.artNr}}">{{product.proName}}</a></td>
+                <td>{{product.price}}</td>
+                <td><img ng-src="shop/app/img/{{product.url}}" alt="{{product.proName}}" height="100" width="150"></td>
+                <td>
+                    <button class="btn btn-default" ng-click="removeFromCart(product)">
+                    Remove
+                    </button>
+                </td>
+            </tr>
+        </table>
+        Total cost: {{cost}}
+        <button class="btn btn-default" ng-click="checkout()">
+            Checkout
+        </button>
+</div>
+
