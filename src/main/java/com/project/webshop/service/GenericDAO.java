@@ -7,7 +7,10 @@ import java.io.Serializable;
 import java.util.List;
 
 /**
+ * Abstract class implementing all CRUD operations.
  *
+ * @param <T> type of elements in container
+ * @param <K> K is type of id (primary key)
  */
 public abstract class GenericDAO<T, K extends Serializable> implements IGenericDAO<T, K> {
 

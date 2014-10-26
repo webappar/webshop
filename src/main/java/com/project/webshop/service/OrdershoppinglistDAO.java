@@ -12,6 +12,7 @@ import javax.ws.rs.core.Response;
 import java.util.List;
 
 /**
+ * DAO providing ordershoppinglist through the RESTful API
  *
  */
 @Path("ordershoppinglist")

@@ -9,6 +9,7 @@ import javax.ws.rs.core.Response;
 import java.util.List;
 
 /**
+ * DAO providing orderitem through the RESTful API
  *
  */
 @Path("orderitem")

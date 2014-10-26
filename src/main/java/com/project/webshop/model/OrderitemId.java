@@ -5,6 +5,7 @@ import javax.persistence.Embeddable;
 
 /**
  * OrderitemId
+ *
  */
 @Embeddable
 public class OrderitemId implements java.io.Serializable {

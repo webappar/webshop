@@ -8,7 +8,8 @@ import javax.persistence.Entity;
 import javax.persistence.Table;
 
 /**
- * Orderitem
+ * Orderitem Entity
+ *
  */
 @Entity
 @Table(name = "Orderitem", catalog = "webshop")

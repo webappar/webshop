@@ -13,6 +13,7 @@ import javax.ws.rs.core.Response;
 import java.util.List;
 
 /**
+ * DAO providing orderprice through the RESTful API
  *
  */
 @Path("orderprice")

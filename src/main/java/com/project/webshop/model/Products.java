@@ -6,7 +6,8 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 /**
- * Products
+ * Products Entity
+ *
  */
 @Entity
 @Table(name = "Products", catalog = "webshop")

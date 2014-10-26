@@ -7,7 +7,8 @@ import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
 /**
- * Customer
+ * Customer Entity
+ *
  */
 @Entity
 @Table(name = "Customer", catalog = "webshop", uniqueConstraints = @UniqueConstraint(columnNames = "userEmail"))

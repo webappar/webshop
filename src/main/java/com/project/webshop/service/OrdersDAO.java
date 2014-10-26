@@ -10,6 +10,7 @@ import javax.ws.rs.core.Response;
 import java.util.List;
 
 /**
+ * DAO providing orders through the RESTful API
  *
  */
 @Path("orders")
@@ -36,13 +37,6 @@ public class OrdersDAO extends GenericDAO<Orders, Integer> {
         super.update(order);
         return Response.noContent().build();
     }
-
-    /*@DELETE
-    @Path("{id}")
-    public Response delete(@PathParam("id") final int id) {
-        //super.delete(new Orders());
-        return Response.noContent().build();
-    }*/
 
     @GET
     @Path("{id}")

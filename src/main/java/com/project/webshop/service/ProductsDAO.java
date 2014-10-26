@@ -10,6 +10,7 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 /**
+ * DAO providing products through the RESTful API
  *
  */
 @Path("products")

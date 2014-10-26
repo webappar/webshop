@@ -16,7 +16,8 @@ public class HibernateUtil {
     static {
         try {
             // Create the SessionFactory from (hibernate.cfg.xml) for
-            // Hibernate 4.3.0 on wards. Constructor buildSessionFactory() is deprecated.
+            // Hibernate 4.3.0 on wards. Note: Most examples online uses the deprecated
+            // empty constructor buildSessionFactory() solution which is not used here.
             Configuration configuration = new Configuration().configure();
             StandardServiceRegistryBuilder builder = new StandardServiceRegistryBuilder().
                     applySettings(configuration.getProperties());
